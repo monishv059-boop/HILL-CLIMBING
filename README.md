@@ -59,3 +59,60 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+#Program:
+
+~~~
+import random
+import string
+
+def generate_random_solution(answer):
+    l = len(answer)                                                               
+    return [random.choice(string.printable) for _ in range(l)]
+
+def evaluate(solution, answer):
+    print(solution)
+    target = list(answer)
+    diff = 0
+
+    for i in range(len(target)):
+        s = solution[i]
+        t = target[i]
+
+        diff += abs(ord(s) - ord(t))
+
+    return diff
+
+def mutate_solution(solution):
+    ind = random.randint(0, len(solution) - 1)
+    solution[ind] = random.choice(string.printable)
+    return solution
+
+
+
+def SimpleHillClimbing():
+    answer = input("Enter the String:")
+
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+
+    while True:
+        print("Score:", best_score, " Solution:", "".join(best))
+
+        if best_score == 0:
+            print("\nTarget String Found!")
+            break
+
+        new_solution = mutate_solution(list(best))
+        score = evaluate(new_solution, answer)
+
+        if score < best_score:
+            best = new_solution
+            best_score = score
+
+SimpleHillClimbing()
+
+~~~
+#Output:
+<img width="832" height="576" alt="image" src="https://github.com/user-attachments/assets/ecda86f3-fcf9-4e31-af2c-9e97dbf4a395" />
+#Result:
+The program for Hill Climbing Algortithm is verified.
